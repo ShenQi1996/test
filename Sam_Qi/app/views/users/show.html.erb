@@ -1,0 +1,33 @@
+<div>
+    <ul>
+        <% @user.notes.each do |note| %>
+            <li>
+                <% if note.secret == false%>
+                    <%= note.title%>
+                    <%= note.description%>
+                    <a href="<%=edit_note_url%>">Edit Note</a>
+                <%end%>
+            </li>
+        <%end%>
+    </ul>
+</div>
+
+
+
+<h1>Add a New Note</h1>
+
+<form action="<%=user_notes_url(@user) %>" method="post">
+
+    <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token %>">
+    <label>Title
+        <input type="text" name="note[title]"value="">
+    </label>
+    <label>Description
+        <input type="text" name="note[description]"value="">
+    </label>
+
+    <input type="radio" name="note[secret]"value="true">
+    <input type="radio" name="note[secret]"value="false">
+
+    <input type="submit" value="Create Note">
+</form>
